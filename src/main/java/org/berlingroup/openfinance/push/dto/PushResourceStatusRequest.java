@@ -1,11 +1,21 @@
 package org.berlingroup.openfinance.push.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.Valid;
-import org.berlingroup.openfinance.push.model.enums.*;
-
 import java.util.Map;
 import java.util.UUID;
+
+import org.berlingroup.openfinance.push.model.enums.ConsentStatus;
+import org.berlingroup.openfinance.push.model.enums.DocumentStatus;
+import org.berlingroup.openfinance.push.model.enums.MandateStatus;
+import org.berlingroup.openfinance.push.model.enums.RequestStatus;
+import org.berlingroup.openfinance.push.model.enums.SCAStatus;
+import org.berlingroup.openfinance.push.model.enums.StatusReasonCode;
+import org.berlingroup.openfinance.push.model.enums.SubscriptionEntryStatus;
+import org.berlingroup.openfinance.push.model.enums.SubscriptionStatus;
+import org.berlingroup.openfinance.push.model.enums.TransactionStatus;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.validation.Valid;
 
 /**
  * Push Resource Status Notification request body as defined in the 

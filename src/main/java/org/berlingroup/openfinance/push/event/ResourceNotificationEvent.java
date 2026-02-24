@@ -1,9 +1,9 @@
 package org.berlingroup.openfinance.push.event;
 
+import java.util.UUID;
+
 import org.berlingroup.openfinance.push.dto.PushResourceStatusRequest;
 import org.springframework.context.ApplicationEvent;
-
-import java.util.UUID;
 
 /**
  * Spring Application Event published when a Resource Status Notification 

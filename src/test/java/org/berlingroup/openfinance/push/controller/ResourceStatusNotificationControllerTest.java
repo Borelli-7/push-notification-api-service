@@ -1,6 +1,9 @@
 package org.berlingroup.openfinance.push.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Map;
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import org.berlingroup.openfinance.push.config.SecurityConfig;
 import org.berlingroup.openfinance.push.dto.Amount;
 import org.berlingroup.openfinance.push.dto.HrefType;
@@ -8,28 +11,36 @@ import org.berlingroup.openfinance.push.dto.PushResourceStatusRequest;
 import org.berlingroup.openfinance.push.exception.DuplicateRequestException;
 import org.berlingroup.openfinance.push.exception.GlobalExceptionHandler;
 import org.berlingroup.openfinance.push.exception.InvalidNotificationException;
-import org.berlingroup.openfinance.push.model.enums.*;
+import org.berlingroup.openfinance.push.model.enums.ConsentStatus;
+import org.berlingroup.openfinance.push.model.enums.DocumentStatus;
+import org.berlingroup.openfinance.push.model.enums.MandateStatus;
+import org.berlingroup.openfinance.push.model.enums.RequestStatus;
+import org.berlingroup.openfinance.push.model.enums.SCAStatus;
+import org.berlingroup.openfinance.push.model.enums.StatusReasonCode;
+import org.berlingroup.openfinance.push.model.enums.SubscriptionEntryStatus;
+import org.berlingroup.openfinance.push.model.enums.SubscriptionStatus;
+import org.berlingroup.openfinance.push.model.enums.TransactionStatus;
 import org.berlingroup.openfinance.push.service.ResourceStatusNotificationService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Map;
-import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Unit tests for {@link ResourceStatusNotificationController}.
